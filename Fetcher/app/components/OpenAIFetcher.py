@@ -2,7 +2,7 @@ from openai import AsyncOpenAI
 from openai.types import Completion
 from dotenv import load_dotenv
 import os
-from components.Logger import create_logger
+from app.components.Logger import create_logger
 
 class OpenAIQueryError(Exception):
     pass

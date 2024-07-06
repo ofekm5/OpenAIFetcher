@@ -1,9 +1,9 @@
 import asyncio
 from flask import jsonify
-from components.OpenAIHandler import OpenAIFetcher
+from app.components.OpenAIFetcher import OpenAIFetcher
 from dotenv import load_dotenv
 import os
-from components.Logger import create_logger
+from app.components.Logger import create_logger
 
 class Scheduler:
     def __init__(self) -> None:

@@ -1,7 +1,7 @@
 from flask_marshmallow import Marshmallow
 from marshmallow import fields, validate, pre_load, ValidationError
 import bleach
-from components.Logger import create_logger
+from app.components.Logger import create_logger
 
 ma = Marshmallow()
 
