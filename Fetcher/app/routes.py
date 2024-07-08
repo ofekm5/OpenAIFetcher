@@ -5,7 +5,7 @@ from app.models import Prompt, Response
 
 bp = Blueprint('main', __name__)
 
-@bp.route('/ask', methods=['POST'])
+@bp.route('/question', methods=['POST'])
 def ask_question():
     data = request.get_json()
 

@@ -1,47 +1,34 @@
 version: '3.8'
 
 services:
-  db:
-    build:
-      context: .
-      dockerfile: Dockerfile.DB
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-  app:
-    build:
-      context: .
-      dockerfile: Fetcher/Dockerfile
+  web:
+    build: .
     command: flask run --host=0.0.0.0
     volumes:
-      - .:/app
+      - .:/code
     ports:
       - "5000:5000"
-    environment:
-      FLASK_APP: run.py
-      FLASK_ENV: development
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/mydatabase
     depends_on:
       - db
 
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   test:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: test
+    build: .
     command: pytest
     volumes:
-      - .:/app
-    environment:
-      DATABASE_URL: postgresql://myuser:mypassword@db:5432/mydatabase
+      - .:/code
     depends_on:
       - db
 
 volumes:
-  pgdata:
+  postgres_data:
