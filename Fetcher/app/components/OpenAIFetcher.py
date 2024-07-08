@@ -34,7 +34,7 @@ class OpenAIFetcher:
     def __store_answer_in_db(self, answer: Completion, question_ID: str) -> None:
         self.__logger.info(f"Storing answer in DB for question_ID: {question_ID}")
         choice = answer.choices[0]  
-        new_response = Response(prompt_id=question_ID, response=choice.text)
+        new_response = Response(prompt_id=question_ID, response=choice.text.strip())
         db.session.add(new_response)
         db.session.commit()
-        self.__logger.info(f"Stored answer for question_ID: {question_ID}, content: {choice.text}")
+        self.__logger.info(f"Stored answer for question_ID: {question_ID}, content: {choice.text.strip()}")
