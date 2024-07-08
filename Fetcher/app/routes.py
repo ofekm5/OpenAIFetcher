@@ -54,10 +54,10 @@ def fetch_answer():
 
         response = Response.query.get(sanitized_data['questionID'])
         if response:
-            current_app.logger.info(f'Returning answer for questionID {sanitized_data['questionID']}')
+            current_app.logger.info(f"Returning answer for questionID {sanitized_data['questionID']}")
             return jsonify({'answer': response.response}), 200
         else:
-            current_app.logger.error(f'Response not found for questionID {sanitized_data['questionID']}')
+            current_app.logger.error(f"Response not found for questionID {sanitized_data['questionID']}")
             return jsonify({'error': 'Response not found'}), 404
     except ValidationError as err:
         return jsonify(err.messages), 400
